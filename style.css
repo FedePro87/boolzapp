@@ -1,0 +1,199 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #CED3C6;
+}
+
+.green-line{
+  width: 100%;
+  height: 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #4D8875;
+}
+
+.wrapper{
+  display: flex;
+  width: 90%;
+  height: 95%;
+  margin: auto;
+  color: white;
+  z-index: 5;
+  background-color: #E8E8E8;
+}
+
+.left{
+  height: 100%;
+  width: 30%;
+  border-right: 1px solid #C3C3C3;
+}
+
+.right{
+  height: 100%;
+  width: 70%;
+}
+
+.header{
+  height: 10%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.profile-img{
+  max-width: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.icons-wrapper{
+  color: #6C7175;
+  font-size: 20px;
+  margin-left: auto;
+}
+
+.icons-wrapper i{
+  margin-left: 10px;
+}
+
+.notifications{
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: #A5D0FE;
+  padding: 0 20px;
+  color: black;
+}
+
+.notifications-text a{
+  color: black;
+}
+
+.bell{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.bell i{
+  color: #A5D0FE;
+}
+
+.search{
+  padding: 10px 20px;
+}
+
+.search input{
+  width: 90%;
+  height: 25px;
+}
+
+.magnifier{
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10%;
+  height: 25px;
+  border: 1px solid #C3C3C3;
+  background-color: white;
+  color: #6C7175;
+}
+
+.message-box{
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: black;
+  border-bottom: 1px solid #C3C3C3;
+  cursor: pointer;
+}
+
+.message-box:hover{
+  background-color: #6C7175;
+}
+
+.time{
+  margin-left: auto;
+}
+
+.selected{
+  background-color: #D7D7D7;
+}
+
+.messages-wrapper{
+  height: 80%;
+  width: 100%;
+  color: black;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+  background-image: url("https://files.slack.com/files-pri/T91QPE3BP-FGTQ9A2QY/msg-background.jpg");
+}
+
+.message{
+  min-height: min-content;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 40%;
+  margin: 5px 0;
+}
+
+.received{
+  background-color: white;
+}
+
+.sent{
+  background-color: #D3FFB8;
+  margin-left: auto;
+}
+
+.messages-time{
+  color: #959595;
+  margin-left: auto;
+}
+
+.input-text-wrapper{
+  height: 10%;
+  color: black;
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  font-size: 24px;
+}
+
+#input-message{
+  margin: 0 30px;
+  padding: 0 10px;
+  height: 90%;
+  width: 90%;
+  border-radius: 5px;
+}
+
+.input-text-wrapper i{
+  color: #6C7175;
+}
+
+.hidden{
+  display: none;
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Boolzapp</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="green-line"></div>
+    <div id="try" class="wrapper">
+      <div class="left">
+        <div class="header">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="icons-wrapper">
+            <i class="far fa-user-circle"></i>
+            <i class="fas fa-comment-alt"></i>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+        </div>
+        <div class="notifications">
+          <div class="bell"><i class="fas fa-bell-slash"></i></div>
+          <div class="notifications-text">
+            <h4>Ricevi notifiche di nuovi messaggi</h4>
+            <a href="#">Attiva notifiche desktop</a>
+          </div>
+        </div>
+        <div class="search">
+          <input id="search-user" type="text" name="" value="">
+          <div class="magnifier"><i class="fas fa-search"></i></div>
+        </div>
+        <div class="message-box selected">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Kishi</h4>
+            <p>Hi!</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+        <div class="message-box">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Hikata</h4>
+            <p>Hai visto che razza di sito!?</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+        <div class="message-box">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Matsumoto</h4>
+            <p>Hai visto che razza di sito!?</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+        <div class="message-box">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Yoshi</h4>
+            <p>Lorem ipsum dolor sit amet</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+        <div class="message-box">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Ren</h4>
+            <p>Hai visto che razza di sito!?</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+        <div class="message-box">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="message-content">
+            <h4>Ichigo</h4>
+            <p>Hai visto che razza di sito!?</p>
+          </div>
+          <span class="time">17:03</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="header">
+          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+          <div class="header-text">
+            <h4 id="contact-name">Kishi</h4>
+            <p>Ultimo accesso oggi alle 15:40</p>
+          </div>
+          <div class="icons-wrapper">
+            <i class="far fa-user-circle"></i>
+            <i class="fas fa-comment-alt"></i>
+            <i class="fas fa-ellipsis-v"></i>
+          </div>
+        </div>
+        <div class="messages-wrapper">
+          <div class="message received kishi">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <span class="messages-time">15:15</span>
+          </div>
+          <div class="message sent kishi">
+            <p>You seem a little bit confused Kishi, are you all right??</p>
+            <span class="messages-time">15:28</span>
+          </div>
+          <div class="message received hikata hidden">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <span class="messages-time">15:15</span>
+          </div>
+          <div class="message sent hikata hidden">
+            <p>Hikata, are you kidding me?</p>
+            <span class="messages-time">15:28</span>
+          </div>
+        </div>
+        <div class="input-text-wrapper">
+          <i class="far fa-smile"></i>
+          <input id="input-message" type="text" name="" value="" placeholder="Write text here...">
+          <i class="fas fa-microphone"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
