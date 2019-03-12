@@ -87,6 +87,7 @@ function searchUser(mySearch){
 function selectChat(){
   var messageBox=$(".message-box");
   var contactName=$("#contact-name");
+  var contactImage=$("#contact-img");
 
   messageBox.click(function(){
     var activeChat=$(".selected");
@@ -97,7 +98,10 @@ function selectChat(){
     var me=$(this);
     me.addClass("selected");
     var meContent=me.children(".message-content");
-    meContentName=meContent.children("h4").text();
+    var meContentName=meContent.children("h4").text();
+    var meContentImage=me.children("img");
+    var meContentImageUrl=meContentImage.attr("src");
+    contactImage.attr("src",meContentImageUrl);
     contactName.text(meContentName);
     meContentName=lowerizeFirstLetter(meContentName);
     currentClass.hide();
