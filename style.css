@@ -4,6 +4,14 @@
   padding: 0;
 }
 
+.left .header i,.right .header i,.input-text-wrapper i{
+  cursor: pointer;
+}
+
+.left .header i:hover,.right .header i:hover,.input-text-wrapper i:hover{
+  color: black;
+}
+
 .container{
   display: flex;
   height: 100vh;
@@ -140,7 +148,7 @@
 }
 
 .message-box:hover{
-  background-color: #6C7175;
+  background-color: #D7D7D7;
 }
 
 .time{

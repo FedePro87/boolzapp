@@ -146,11 +146,12 @@ function selectChatsToDelete(){
   var longpress = 400;
   var start;
   var indexesToDelete=[];
-  var selection=false;
+  var selectionActive=false;
 
   chats.off("mousedown")
        .off("mouseleave")
        .off("mouseup");
+  removeHighlight();
 
   chats.on( "mousedown", function( e ) {
     start = new Date().getTime();
@@ -168,7 +169,7 @@ function selectChatsToDelete(){
       indexesToDelete=[];
       indexesToDelete.push(me.index());
       selectedChats.text(indexesToDelete.length + " elemento selezionato");
-      selection=true;
+      selectionActive=true;
       rightHeader.addClass("hidden");
       longPressOptions.removeClass("hidden");
       me.addClass("highlight-chat");
@@ -190,11 +191,11 @@ function selectChatsToDelete(){
         if (indexesToDelete.length==0) {
           rightHeader.removeClass("hidden");
           longPressOptions.addClass("hidden");
-          selection=false;
+          selectionActive=false;
         }
       } else {
         //Se non è selezionato fa questo
-        if (selection) {
+        if (selectionActive) {
           indexesToDelete.push(me.index());
           if (indexesToDelete.length==1) {
             selectedChats.text(indexesToDelete.length + " elemento selezionato");
