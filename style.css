@@ -49,6 +49,11 @@
   color: black;
 }
 
+#long-press-options i{
+  color: #6C7175;
+  margin-left: auto;
+}
+
 .profile-img{
   max-width: 50px;
   border-radius: 50%;
@@ -154,7 +159,6 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  flex: 1;
   background-image: url("https://files.slack.com/files-pri/T91QPE3BP-FGTQ9A2QY/msg-background.jpg");
 }
 
@@ -165,6 +169,7 @@
   display: flex;
   flex-direction: column;
   max-width: 40%;
+  word-wrap: break-word;
   margin: 5px 0;
 }
 
@@ -201,6 +206,10 @@
 
 .input-text-wrapper i{
   color: #6C7175;
+}
+
+.highlight-chat{
+  background-color: rgba(165, 208, 254, 0.5);
 }
 
 .hidden{

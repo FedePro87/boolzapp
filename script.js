@@ -28,11 +28,15 @@ function sendMessage(){
       var newMessage=document.createElement("div");
       $(newMessage).addClass("message")
       .addClass("sent")
-      .addClass(currentContact);
-      $(newMessage).append(newText)
+      .addClass(currentContact)
+      .append(newText)
       .append(newTime);
-      messagesWrapper.append(newMessage);
+      var newLongClickWrapper=document.createElement("div");
+      $(newLongClickWrapper).addClass("long-click-wrapper")
+      .append(newMessage);
+      messagesWrapper.append(newLongClickWrapper);
     }
+    selectChatsToDelete();
   });
 }
 
@@ -52,10 +56,15 @@ function receiveMessage(){
   var newMessage=document.createElement("div");
   $(newMessage).addClass("message")
   .addClass("received")
-  .addClass(currentContact);
-  $(newMessage).append(newText)
+  .addClass(currentContact)
+  .append(newText)
   .append(newTime);
-  messagesWrapper.append(newMessage);
+  var newLongClickWrapper=document.createElement("div");
+  $(newLongClickWrapper).addClass("long-click-wrapper")
+  .append(newMessage);
+  messagesWrapper.append(newLongClickWrapper);
+
+  selectChatsToDelete();
 }
 
 function searchUser(mySearch){
@@ -84,12 +93,31 @@ function searchUser(mySearch){
   }
 }
 
-function selectChat(){
+function removeHighlight(){
+  var rightHeader=$(".right > .header");
+  var longPressOptions=$("#long-press-options");
+  var chats=$(".long-click-wrapper");
+
+  rightHeader.removeClass("hidden");
+  longPressOptions.addClass("hidden");
+
+  for (var i = 0; i < chats.length; i++) {
+    if (chats.eq(i).hasClass("highlight-chat")) {
+      chats.eq(i).removeClass("highlight-chat");
+    }
+  }
+}
+
+function selectContactChat(){
   var messageBox=$(".message-box");
   var contactName=$("#contact-name");
   var contactImage=$("#contact-img");
+  var chats=$(".long-click-wrapper");
+  var bin=$("#bin");
 
   messageBox.click(function(){
+    removeHighlight();
+    bin.off("click");
     var activeChat=$(".selected");
     activeChat.removeClass("selected");
     var currentContact=lowerizeFirstLetter(contactName.text());
@@ -104,15 +132,106 @@ function selectChat(){
     contactImage.attr("src",meContentImageUrl);
     contactName.text(meContentName);
     meContentName=lowerizeFirstLetter(meContentName);
-    currentClass.hide();
+    currentClass.addClass("hidden");
     var classToShow="." + meContentName;
-    $(classToShow).css("display","flex");
+    $(classToShow).removeClass("hidden");
+  });
+}
+
+function selectChatsToDelete(){
+  var chats=$(".long-click-wrapper");
+  var rightHeader=$(".right > .header");
+  var longPressOptions=$("#long-press-options");
+  var selectedChats=$("#selected-chats");
+  var longpress = 400;
+  var start;
+  var indexesToDelete=[];
+  var selection=false;
+
+  chats.off("mousedown")
+       .off("mouseleave")
+       .off("mouseup");
+
+  chats.on( "mousedown", function( e ) {
+    start = new Date().getTime();
+  } );
+
+  chats.on( "mouseleave", function( e ) {
+    start = 0;
+  } );
+
+  chats.on( "mouseup", function(e) {
+    var me;
+    //Questo succede al long click
+    if ( new Date().getTime() >= ( start + longpress )  ) {
+      me=$(this);
+      indexesToDelete=[];
+      indexesToDelete.push(me.index());
+      selectedChats.text(indexesToDelete.length + " elemento selezionato");
+      selection=true;
+      rightHeader.addClass("hidden");
+      longPressOptions.removeClass("hidden");
+      me.addClass("highlight-chat");
+    } else {
+      //Questo succede al click
+      me=$(this);
+      //Se è selezionato fa questo
+      if (me.hasClass("highlight-chat")) {
+        me.removeClass("highlight-chat");
+        var myIndex=indexesToDelete.indexOf(me.index());
+        if (myIndex > -1) {
+          indexesToDelete.splice(myIndex, 1);
+        }
+        if (indexesToDelete.length==1) {
+          selectedChats.text(indexesToDelete.length + " elemento selezionato");
+        } else {
+          selectedChats.text(indexesToDelete.length + " elementi selezionati");
+        }
+        if (indexesToDelete.length==0) {
+          rightHeader.removeClass("hidden");
+          longPressOptions.addClass("hidden");
+          selection=false;
+        }
+      } else {
+        //Se non è selezionato fa questo
+        if (selection) {
+          indexesToDelete.push(me.index());
+          if (indexesToDelete.length==1) {
+            selectedChats.text(indexesToDelete.length + " elemento selezionato");
+          } else {
+            selectedChats.text(indexesToDelete.length + " elementi selezionati");
+          }
+          me.addClass("highlight-chat");
+        }
+      }
+    }
+    deleteChats(indexesToDelete)
+  });
+}
+
+function deleteChats(indexesToDelete){
+  var bin=$("#bin");
+  var chats=$(".long-click-wrapper");
+  var rightHeader=$(".right > .header");
+  var longPressOptions=$("#long-press-options");
+
+  bin.click(function(){
+    rightHeader.removeClass("hidden");
+    longPressOptions.addClass("hidden");
+    for (var i = 0; i < chats.length; i++) {
+      for (var z = 0; z < indexesToDelete.length; z++) {
+        if (indexesToDelete[z]==i) {
+          chats.eq(i).html("");
+        }
+      }
+    }
   });
 }
 
 function init(){
   sendMessage();
-  selectChat();
+  selectContactChat();
+  selectChatsToDelete();
   var userToSearch=$("#search-user");
   userToSearch.on("input",function(){
     searchUser(userToSearch.val());
