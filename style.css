@@ -55,6 +55,15 @@
   margin-right: 20px;
 }
 
+#my-img{
+  width: 50px;
+  height: 50px;
+  background-image: url("https://scontent-fco1-1.xx.fbcdn.net/v/t1.0-9/1236584_10201366261910944_1300062444_n.jpg?_nc_cat=108&_nc_ht=scontent-fco1-1.xx&oh=a5189930c05d1205b6a727b091d68375&oe=5D17C039");
+  background-size: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
 .icons-wrapper{
   color: #6C7175;
   font-size: 20px;

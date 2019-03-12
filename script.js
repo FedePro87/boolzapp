@@ -1,20 +1,20 @@
 function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function lowerizeFirstLetter(string) {
-    return string.charAt(0).toLowerCase() + string.slice(1);
+  return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
 function sendMessage(){
   var inputText=$("#input-message");
   var messagesWrapper=$(".messages-wrapper");
   var contactName=$("#contact-name");
-  var currentdate = new Date();
 
   inputText.keyup(function(e){
     if(e.keyCode == 13)
     {
+      var currentdate = new Date();
       var currentContact=contactName.text();
       currentContact=lowerizeFirstLetter(currentContact);
 
@@ -24,13 +24,13 @@ function sendMessage(){
       inputText.val("");
       var newTime=document.createElement("span");
       $(newTime).addClass("messages-time")
-                .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
+      .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
       var newMessage=document.createElement("div");
       $(newMessage).addClass("message")
-                   .addClass("sent")
-                   .addClass(currentContact);
+      .addClass("sent")
+      .addClass(currentContact);
       $(newMessage).append(newText)
-                   .append(newTime);
+      .append(newTime);
       messagesWrapper.append(newMessage);
     }
   });
@@ -48,13 +48,13 @@ function receiveMessage(){
   $(newText).text("Ok");
   var newTime=document.createElement("span");
   $(newTime).addClass("messages-time")
-            .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
+  .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
   var newMessage=document.createElement("div");
   $(newMessage).addClass("message")
-               .addClass("received")
-               .addClass(currentContact);
+  .addClass("received")
+  .addClass(currentContact);
   $(newMessage).append(newText)
-               .append(newTime);
+  .append(newTime);
   messagesWrapper.append(newMessage);
 }
 
