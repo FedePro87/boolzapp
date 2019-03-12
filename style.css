@@ -145,6 +145,7 @@
   color: black;
   border-bottom: 1px solid #C3C3C3;
   cursor: pointer;
+  overflow-y: hidden;
 }
 
 .message-box:hover{
@@ -210,6 +211,8 @@
   height: 90%;
   width: 90%;
   border-radius: 5px;
+  border: 1px solid #cecece;
+  outline: none;
 }
 
 .input-text-wrapper i{

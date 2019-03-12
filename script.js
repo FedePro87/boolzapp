@@ -17,14 +17,16 @@ function sendMessage(){
       var currentdate = new Date();
       var currentContact=contactName.text();
       currentContact=lowerizeFirstLetter(currentContact);
+      var currentTime=currentdate.getHours()+ ":" + currentdate.getMinutes();
 
       setTimeout(receiveMessage,1000);
       var newText=document.createElement("p");
       $(newText).text(inputText.val());
+      updateContactList(currentContact,inputText.val(),currentTime);
       inputText.val("");
       var newTime=document.createElement("span");
       $(newTime).addClass("messages-time")
-      .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
+      .text(currentTime);
       var newMessage=document.createElement("div");
       $(newMessage).addClass("message")
       .addClass("sent")
@@ -38,6 +40,18 @@ function sendMessage(){
     }
     selectChatsToDelete();
   });
+}
+
+function updateContactList(currentContact,myText,currentTime){
+  var messageBox=$(".message-box");
+
+  for (var i = 0; i < messageBox.length; i++) {
+    if (messageBox.eq(i).hasClass(currentContact)) {
+      var myContent=messageBox.eq(i).children(".message-content");
+      myContent.children(".last-message").text(myText);
+      messageBox.eq(i).children(".time").text(currentTime);
+    }
+  }
 }
 
 function receiveMessage(){
@@ -113,6 +127,7 @@ function selectContactChat(){
   var contactName=$("#contact-name");
   var contactImage=$("#contact-img");
   var chats=$(".long-click-wrapper");
+  var lastOnline=$("#last-online");
   var bin=$("#bin");
 
   messageBox.click(function(){
@@ -121,12 +136,13 @@ function selectContactChat(){
     var activeChat=$(".selected");
     activeChat.removeClass("selected");
     var currentContact=lowerizeFirstLetter(contactName.text());
-    currentContact="." + currentContact;
+    currentContact=".messages-wrapper ." + currentContact;
     var currentClass=$(currentContact);
     var me=$(this);
     me.addClass("selected");
     var meContent=me.children(".message-content");
     var meContentName=meContent.children("h4").text();
+    lastOnline.text("Ultimo accesso oggi alle " + getLastOnline(meContentName));
     var meContentImage=me.children("img");
     var meContentImageUrl=meContentImage.attr("src");
     contactImage.attr("src",meContentImageUrl);
@@ -136,6 +152,31 @@ function selectContactChat(){
     var classToShow="." + meContentName;
     $(classToShow).removeClass("hidden");
   });
+}
+
+function getLastOnline(meContentName){
+  var lastOnline;
+  switch (meContentName) {
+    case "Kishi":
+    lastOnline="15:40";
+    break;
+    case "Hikata":
+    lastOnline="11:32";
+    break;
+    case "Matsumoto":
+    lastOnline="16:18";
+    break;
+    case "Hinata":
+    lastOnline="18:11";
+    break;
+    case "Reika":
+    lastOnline="02:33";
+    break;
+    case "Ichigo":
+    lastOnline="05:20";
+    break;
+  }
+  return lastOnline;
 }
 
 function selectChatsToDelete(){
@@ -149,8 +190,8 @@ function selectChatsToDelete(){
   var selectionActive=false;
 
   chats.off("mousedown")
-       .off("mouseleave")
-       .off("mouseup");
+  .off("mouseleave")
+  .off("mouseup");
   removeHighlight();
 
   chats.on( "mousedown", function( e ) {
