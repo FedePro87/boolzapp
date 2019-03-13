@@ -6,6 +6,62 @@ function lowerizeFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
+function getCommonAnswers() {
+  var commonAnswers=["ciao","buon giorno", "buona notte"];
+  return commonAnswers;
+}
+
+function getMoreAnswers() {
+  var moreAnswers=["grazie","chi sei?","stronzo","vaffanculo","come ti chiami?", "chi ti ha creato?"];
+  return moreAnswers;
+}
+
+function isStringPresent(string, array){
+  for (var i = 0; i < array.length; i++) {
+    if (array[i]==string) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getFunnyAnswer(myText){
+  var response;
+  switch (myText) {
+    case "grazie":
+    response="prego";
+    break;
+    case "stronzo":
+    response="ci sarai tu!";
+    break;
+    case "vaffanculo":
+    response="ma vacci tu!";
+    break;
+    case "come ti chiami?":
+    response="sto cazzo";
+    break;
+    case "chi ti ha creato?":
+    response="dio, ovvero Federico Provenziani";
+    break;
+    case "chi sei?":
+    response="goku non lo sai";
+    break;
+  }
+  return response;
+}
+
+function getResponse(myText){
+  var response;
+  if (isStringPresent(myText,getCommonAnswers())) {
+    response=capitalizeFirstLetter(myText);
+  } else if (isStringPresent(myText,getMoreAnswers())) {
+    response=getFunnyAnswer(myText);
+  } else {
+    response="Non capisco";
+  }
+  return response;
+}
+
 function sendMessage(sent){
   var inputText=$("#input-message");
   var contactName=$("#contact-name");
@@ -21,10 +77,10 @@ function sendMessage(sent){
     $(newText).text(inputText.val());
     updateContactList(currentContact,inputText.val(),currentTime);
   } else {
-    $(newText).text("Ok");
+    $(newText).text(capitalizeFirstLetter(getResponse(inputText.val().toLowerCase())));
+    inputText.val("");
   }
 
-  inputText.val("");
   var newTime=document.createElement("span");
   $(newTime).addClass("messages-time")
             .text(currentTime);
@@ -107,13 +163,13 @@ function selectContactChat(){
   var contactImage=$("#contact-img");
   var lastOnline=$("#last-online");
   var bin=$("#bin");
-  var messagesWrapper=$(".messages-wrapper > div");
+  var messagesWrapper=$(".messages-wrapper > .chat");
 
   contactBox.click(function(){
     removeHighlight();
     bin.off("click");
     var activeChat=$(".selected");
-    messagesWrapper.eq(activeChat.index()).addClass("hidden");
+    messagesWrapper.eq(activeChat.index()).removeClass("showed");
     activeChat.removeClass("selected");
     var me=$(this);
     me.addClass("selected");
@@ -124,7 +180,7 @@ function selectContactChat(){
     var meContentImageUrl=meContentImage.attr("src");
     contactImage.attr("src",meContentImageUrl);
     contactName.text(meContentName);
-    messagesWrapper.eq(me.index()).removeClass("hidden");
+    messagesWrapper.eq(me.index()).addClass("showed");
   });
 }
 
@@ -154,7 +210,7 @@ function getLastOnline(meContentName){
 }
 
 function selectChatsToDelete(){
-  var chats=$(".long-click-wrapper");
+  var chats=$(".showed > .long-click-wrapper");
   var rightHeader=$(".right > .header");
   var longPressOptions=$("#long-press-options");
   var selectedChats=$("#selected-chats");
@@ -227,7 +283,7 @@ function selectChatsToDelete(){
 
 function deleteChats(indexesToDelete){
   var bin=$("#bin");
-  var chats=$(".long-click-wrapper");
+  var chats=$(".showed > .long-click-wrapper");
   var rightHeader=$(".right > .header");
   var longPressOptions=$("#long-press-options");
 
@@ -236,6 +292,7 @@ function deleteChats(indexesToDelete){
     longPressOptions.addClass("hidden");
     for (var i = 0; i < chats.length; i++) {
       for (var z = 0; z < indexesToDelete.length; z++) {
+        console.log(chats.eq(i).html());
         if (indexesToDelete[z]==i) {
           chats.eq(i).html("");
         }
@@ -249,7 +306,7 @@ function init(){
   var inputText=$("#input-message");
 
   selectContactChat();
-  selectChatsToDelete();
+  // selectChatsToDelete();
 
   userToSearch.on("input",function(){
     searchUser(userToSearch.val().toLowerCase());

@@ -227,6 +227,14 @@
   background-color: rgba(165, 208, 254, 0.5);
 }
 
+.messages-wrapper > .chat{
+  display: none;
+}
+
+.messages-wrapper > .showed{
+  display: block;
+}
+
 .hidden{
   display: none;
 }
