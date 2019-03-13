@@ -69,7 +69,7 @@
   margin-right: 20px;
 }
 
-#my-img{
+.my-img{
   width: 50px;
   height: 50px;
   background-image: url("https://scontent-fco1-1.xx.fbcdn.net/v/t1.0-9/1236584_10201366261910944_1300062444_n.jpg?_nc_cat=108&_nc_ht=scontent-fco1-1.xx&oh=a5189930c05d1205b6a727b091d68375&oe=5D17C039");
@@ -204,10 +204,28 @@
   border-radius: 10px;
   padding: 10px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   max-width: 40%;
   word-wrap: break-word;
   margin: 5px 0;
+}
+
+.message > p{
+  overflow: hidden;
+}
+
+.message.sent > .my-img{
+  order: 3;
+  margin: 0 10px;
+}
+
+.message.sent > p{
+  margin-right: auto;
+}
+
+.message.sent > .messages-time{
+  order: 2;
+  margin-left: 0;
 }
 
 .received{
@@ -222,6 +240,7 @@
 .messages-time{
   color: #959595;
   margin-left: auto;
+  align-self: flex-end;
 }
 
 .input-text-wrapper{

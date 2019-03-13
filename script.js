@@ -69,21 +69,31 @@ function getResponse(myText){
   return response;
 }
 
-function sendMessage(sent){
+function getMyProfileImg() {
+  return "https://scontent-fco1-1.xx.fbcdn.net/v/t1.0-9/1236584_10201366261910944_1300062444_n.jpg?_nc_cat=108&_nc_ht=scontent-fco1-1.xx&oh=a5189930c05d1205b6a727b091d68375&oe=5D17C039";
+}
+
+function sendMessage(sent,contacts){
   var inputText=$("#input-message");
   var contactName=$("#contact-name");
+  var showedChat=$(".showed");
 
   var currentdate = new Date();
   var mins = ("0"+currentdate.getMinutes()).slice(-2);
   var currentTime=currentdate.getHours()+ ":" + mins;
   var newText=document.createElement("p");
+  var newImg=document.createElement("img");
 
   if (sent) {
     $(newText).text(inputText.val());
     updateContactList(inputText.val(),currentTime);
+    $(newImg).addClass("my-img");
+    $(newImg).attr("src",getMyProfileImg());
   } else {
     $(newText).text(capitalizeFirstLetter(getResponse(inputText.val().toLowerCase())));
     inputText.val("");
+    $(newImg).addClass("profile-img");
+    $(newImg).attr("src",contacts[showedChat.index()].img);
   }
 
   var newTime=document.createElement("span");
@@ -98,6 +108,7 @@ function sendMessage(sent){
   }
 
   $(newMessage).addClass("message")
+  .append(newImg)
   .append(newText)
   .append(newTime);
   var newLongClickWrapper=document.createElement("div");
@@ -286,8 +297,8 @@ function init(contacts){
   inputText.keyup(function(e){
     if(e.keyCode == 13)
     {
-      sendMessage(true);
-      setTimeout(sendMessage,1000,false);
+      sendMessage(true,contacts);
+      setTimeout(sendMessage,1000,false,contacts);
     }
     removeHighlight();
   });
@@ -295,7 +306,7 @@ function init(contacts){
 
 function getContacts(){
   var contacts=[
-    {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw9ugdyHZwK-OEbibM9fHz6FqAGoLeMUBoPwK1fSnOjIF9gwitnw","name":"Bill","lastOnline":getRandomTime() },
+    {"img":"https://media.tio.ch/files/domains/tio.ch/images/4bmv/s_-bill-gates-sempre-piu-ricco-trump-un-po-di-meno-7h0a.jpg?v=1","name":"Bill","lastOnline":getRandomTime() },
     {"img":"http://talkwithcelebs.com/wp-content/uploads/2017/03/Lauren-Cohan.jpg","name":"Lauren","lastOnline":getRandomTime() },
     {"img":"http://www.metal.it/image.ashx?id=43120&size=400&folder=note&suffix=photo&filters=square","name":"Bruce","lastOnline":getRandomTime() },
     {"img":"https://i1.wp.com/photogallery.indiatimes.com/celebs/celeb-themes/peoples-most-beautiful-women/Most-Beautiful-Women/photo/19723645/Les-Miserables-star-Amanda-Seyfried-has-bagged-the-third-place-in-the-list-of-most-beautiful-women-in-the-world.jpg","name":"Amanda","lastOnline":getRandomTime() },
