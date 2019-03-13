@@ -7,12 +7,12 @@ function lowerizeFirstLetter(string) {
 }
 
 function getCommonAnswers() {
-  var commonAnswers=["ciao","buon giorno", "buona notte"];
+  var commonAnswers=["ciao","buon giorno", "buona notte","arrivederci"];
   return commonAnswers;
 }
 
 function getMoreAnswers() {
-  var moreAnswers=["grazie","chi sei?","stronzo","vaffanculo","come ti chiami?", "chi ti ha creato?"];
+  var moreAnswers=["grazie","chi sei?","come stai?","stronzo","vaffanculo","come ti chiami?", "chi ti ha creato?"];
   return moreAnswers;
 }
 
@@ -30,6 +30,9 @@ function getFunnyAnswer(myText){
   switch (myText) {
     case "grazie":
     response="prego";
+    break;
+    case "come stai?":
+    response="bene";
     break;
     case "stronzo":
     response="ci sarai tu!";
@@ -67,15 +70,13 @@ function sendMessage(sent){
   var contactName=$("#contact-name");
 
   var currentdate = new Date();
-  var currentContact=contactName.text();
-  currentContact=lowerizeFirstLetter(currentContact);
   var mins = ("0"+currentdate.getMinutes()).slice(-2);
   var currentTime=currentdate.getHours()+ ":" + mins;
   var newText=document.createElement("p");
 
   if (sent) {
     $(newText).text(inputText.val());
-    updateContactList(currentContact,inputText.val(),currentTime);
+    updateContactList(inputText.val(),currentTime);
   } else {
     $(newText).text(capitalizeFirstLetter(getResponse(inputText.val().toLowerCase())));
     inputText.val("");
@@ -98,17 +99,17 @@ function sendMessage(sent){
   var newLongClickWrapper=document.createElement("div");
   $(newLongClickWrapper).addClass("long-click-wrapper")
                         .append(newMessage);
-  var contactContainer=$(".messages-wrapper > ." + currentContact);
+  var contactContainer=$(".messages-wrapper > .showed");
   contactContainer.append(newLongClickWrapper);
 
   selectChatsToDelete();
 }
 
-function updateContactList(currentContact,myText,currentTime){
+function updateContactList(myText,currentTime){
   var contactBox=$(".contact-box");
 
   for (var i = 0; i < contactBox.length; i++) {
-    if (contactBox.eq(i).hasClass(currentContact)) {
+    if (contactBox.eq(i).hasClass("selected")) {
       var myContent=contactBox.eq(i).children(".message-content");
       myContent.children(".last-message").text(myText);
       contactBox.eq(i).children(".time").text(currentTime);
