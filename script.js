@@ -102,7 +102,7 @@ function sendMessage(sent){
   var contactContainer=$(".messages-wrapper > .showed");
   contactContainer.append(newLongClickWrapper);
 
-  selectChatsToDelete();
+  // selectChatsToDelete();
 }
 
 function updateContactList(myText,currentTime){
@@ -147,9 +147,11 @@ function removeHighlight(){
   var rightHeader=$(".right > .header");
   var longPressOptions=$("#long-press-options");
   var chats=$(".long-click-wrapper");
+  var bin=$("#bin");
 
   rightHeader.removeClass("hidden");
   longPressOptions.addClass("hidden");
+  bin.off("click");
 
   for (var i = 0; i < chats.length; i++) {
     if (chats.eq(i).hasClass("highlight-chat")) {
@@ -163,12 +165,10 @@ function selectContactChat(){
   var contactName=$("#contact-name");
   var contactImage=$("#contact-img");
   var lastOnline=$("#last-online");
-  var bin=$("#bin");
   var messagesWrapper=$(".messages-wrapper > .chat");
 
   contactBox.click(function(){
     removeHighlight();
-    bin.off("click");
     var activeChat=$(".selected");
     messagesWrapper.eq(activeChat.index()).removeClass("showed");
     activeChat.removeClass("selected");
@@ -211,7 +211,7 @@ function getLastOnline(meContentName){
 }
 
 function selectChatsToDelete(){
-  var chats=$(".showed > .long-click-wrapper");
+  var chats=".showed > .long-click-wrapper";
   var rightHeader=$(".right > .header");
   var longPressOptions=$("#long-press-options");
   var selectedChats=$("#selected-chats");
@@ -220,20 +220,15 @@ function selectChatsToDelete(){
   var indexesToDelete=[];
   var selectionActive=false;
 
-  chats.off("mousedown")
-  .off("mouseleave")
-  .off("mouseup");
-  removeHighlight();
-
-  chats.on( "mousedown", function( e ) {
+  $(document).on( "mousedown", chats, function( e ) {
     start = new Date().getTime();
   } );
 
-  chats.on( "mouseleave", function( e ) {
+  $(document).on( "mouseleave", chats, function( e ) {
     start = 0;
   } );
 
-  chats.on( "mouseup", function(e) {
+  $(document).on( "mouseup", chats, function(e) {
     var me;
     //Questo succede al long click
     if ( new Date().getTime() >= ( start + longpress )  ) {
@@ -307,8 +302,7 @@ function init(){
   var inputText=$("#input-message");
 
   selectContactChat();
-  // selectChatsToDelete();
-
+  selectChatsToDelete();
   userToSearch.on("input",function(){
     searchUser(userToSearch.val().toLowerCase());
   });
@@ -319,6 +313,7 @@ function init(){
       sendMessage(true);
       setTimeout(sendMessage,1000,false);
     }
+    removeHighlight();
   });
 }
 
