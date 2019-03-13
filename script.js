@@ -6,40 +6,47 @@ function lowerizeFirstLetter(string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
-function sendMessage(){
+function sendMessage(sent){
   var inputText=$("#input-message");
   var messagesWrapper=$(".messages-wrapper");
   var contactName=$("#contact-name");
 
-  inputText.keyup(function(e){
-    if(e.keyCode == 13)
-    {
-      var currentdate = new Date();
-      var currentContact=contactName.text();
-      currentContact=lowerizeFirstLetter(currentContact);
-      var currentTime=currentdate.getHours()+ ":" + currentdate.getMinutes();
+  var currentdate = new Date();
+  var currentContact=contactName.text();
+  currentContact=lowerizeFirstLetter(currentContact);
+  var mins = ("0"+current_date.getMinutes()).slice(-2);
+  var currentTime=currentdate.getHours()+ ":" + mins;
+  var newText=document.createElement("p");
 
-      setTimeout(receiveMessage,1000);
-      var newText=document.createElement("p");
-      $(newText).text(inputText.val());
-      updateContactList(currentContact,inputText.val(),currentTime);
-      inputText.val("");
-      var newTime=document.createElement("span");
-      $(newTime).addClass("messages-time")
-      .text(currentTime);
-      var newMessage=document.createElement("div");
-      $(newMessage).addClass("message")
-      .addClass("sent")
-      .addClass(currentContact)
-      .append(newText)
-      .append(newTime);
-      var newLongClickWrapper=document.createElement("div");
-      $(newLongClickWrapper).addClass("long-click-wrapper")
-      .append(newMessage);
-      messagesWrapper.append(newLongClickWrapper);
-    }
-    selectChatsToDelete();
-  });
+  if (sent) {
+    $(newText).text(inputText.val());
+    updateContactList(currentContact,inputText.val(),currentTime);
+  } else {
+    $(newText).text("Ok");
+  }
+
+  inputText.val("");
+  var newTime=document.createElement("span");
+  $(newTime).addClass("messages-time")
+            .text(currentTime);
+  var newMessage=document.createElement("div");
+
+  if (sent) {
+    $(newMessage).addClass("sent");
+  } else {
+    $(newMessage).addClass("received");
+  }
+
+  $(newMessage).addClass("message")
+               .addClass(currentContact)
+               .append(newText)
+               .append(newTime);
+  var newLongClickWrapper=document.createElement("div");
+  $(newLongClickWrapper).addClass("long-click-wrapper")
+                        .append(newMessage);
+  messagesWrapper.append(newLongClickWrapper);
+
+  selectChatsToDelete();
 }
 
 function updateContactList(currentContact,myText,currentTime){
@@ -52,33 +59,6 @@ function updateContactList(currentContact,myText,currentTime){
       messageBox.eq(i).children(".time").text(currentTime);
     }
   }
-}
-
-function receiveMessage(){
-  var currentdate = new Date();
-  var messagesWrapper=$(".messages-wrapper");
-  var contactName=$("#contact-name");
-
-  var currentContact=contactName.text();
-  currentContact=lowerizeFirstLetter(currentContact);
-
-  var newText=document.createElement("p");
-  $(newText).text("Ok");
-  var newTime=document.createElement("span");
-  $(newTime).addClass("messages-time")
-  .text(currentdate.getHours()+ ":" + currentdate.getMinutes());
-  var newMessage=document.createElement("div");
-  $(newMessage).addClass("message")
-  .addClass("received")
-  .addClass(currentContact)
-  .append(newText)
-  .append(newTime);
-  var newLongClickWrapper=document.createElement("div");
-  $(newLongClickWrapper).addClass("long-click-wrapper")
-  .append(newMessage);
-  messagesWrapper.append(newLongClickWrapper);
-
-  selectChatsToDelete();
 }
 
 function searchUser(mySearch){
@@ -271,12 +251,22 @@ function deleteChats(indexesToDelete){
 }
 
 function init(){
-  sendMessage();
+  var userToSearch=$("#search-user");
+  var inputText=$("#input-message");
+
   selectContactChat();
   selectChatsToDelete();
-  var userToSearch=$("#search-user");
+
   userToSearch.on("input",function(){
-    searchUser(userToSearch.val());
+    searchUser(userToSearch.val().toLowerCase());
+  });
+
+  inputText.keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      sendMessage(true);
+      setTimeout(sendMessage,1000,false);
+    }
   });
 }
 
