@@ -296,7 +296,7 @@ function init(contacts){
 function getContacts(){
   var contacts=[
     {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw9ugdyHZwK-OEbibM9fHz6FqAGoLeMUBoPwK1fSnOjIF9gwitnw","name":"Bill","lastOnline":getRandomTime() },
-    {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHv3F1cjtMQSU6DhugBsoub0BU8caybVW-tSlR8Q6-yl3E7SKQ","name":"Lauren","lastOnline":getRandomTime() },
+    {"img":"http://talkwithcelebs.com/wp-content/uploads/2017/03/Lauren-Cohan.jpg","name":"Lauren","lastOnline":getRandomTime() },
     {"img":"http://www.metal.it/image.ashx?id=43120&size=400&folder=note&suffix=photo&filters=square","name":"Bruce","lastOnline":getRandomTime() },
     {"img":"https://i1.wp.com/photogallery.indiatimes.com/celebs/celeb-themes/peoples-most-beautiful-women/Most-Beautiful-Women/photo/19723645/Les-Miserables-star-Amanda-Seyfried-has-bagged-the-third-place-in-the-list-of-most-beautiful-women-in-the-world.jpg","name":"Amanda","lastOnline":getRandomTime() },
     {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS875ig8P-f9nCfdsC6LzksHkDTgfTiyPtmTa3szIc5Q_VF8lESSQ","name":"Evangeline","lastOnline":getRandomTime() },
