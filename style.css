@@ -137,7 +137,7 @@
   color: #6C7175;
 }
 
-.message-box{
+.contact-box{
   height: 60px;
   display: flex;
   align-items: center;
@@ -148,7 +148,7 @@
   overflow-y: hidden;
 }
 
-.message-box:hover{
+.contact-box:hover{
   background-color: #D7D7D7;
 }
 
@@ -217,6 +217,10 @@
 
 .input-text-wrapper i{
   color: #6C7175;
+}
+
+.long-click-wrapper{
+  margin-bottom: 10px;
 }
 
 .highlight-chat{

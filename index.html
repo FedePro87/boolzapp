@@ -33,53 +33,55 @@
           <input id="search-user" type="text" name="" value="">
           <div class="magnifier"><i class="fas fa-search"></i></div>
         </div>
-        <div class="message-box kishi selected">
-          <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
-          <div class="message-content">
-            <h4>Kishi</h4>
-            <p class="last-message"></p>
+        <div class="contacts-wrapper">
+          <div class="contact-box kishi selected">
+            <img class="profile-img" src="https://img.kpopmap.com/2017/11/kim-kookheon.jpg" alt="">
+            <div class="message-content">
+              <h4>Kishi</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
-        </div>
-        <div class="message-box hikata">
-          <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq8O7pdvDOF4eyZBTcqnMvMOr2RSr4a8gHN2ab4FxHLQybNUo7xw" alt="">
-          <div class="message-content">
-            <h4>Hikata</h4>
-            <p class="last-message"></p>
+          <div class="contact-box hikata">
+            <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq8O7pdvDOF4eyZBTcqnMvMOr2RSr4a8gHN2ab4FxHLQybNUo7xw" alt="">
+            <div class="message-content">
+              <h4>Hikata</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
-        </div>
-        <div class="message-box matsumoto">
-          <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMtqwkwOS9bY_xBTo90byeHEiJ0Uqb6W3VKTtPRyDUzjkArS4pig" alt="">
-          <div class="message-content">
-            <h4>Matsumoto</h4>
-            <p class="last-message"></p>
+          <div class="contact-box matsumoto">
+            <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMtqwkwOS9bY_xBTo90byeHEiJ0Uqb6W3VKTtPRyDUzjkArS4pig" alt="">
+            <div class="message-content">
+              <h4>Matsumoto</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
-        </div>
-        <div class="message-box hinata">
-          <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6YfCYAlfeQ6Ww884gWzU-pvc1F2VOElyH-4w0BYHl6LEM_v2S5A" alt="">
-          <div class="message-content">
-            <h4>Hinata</h4>
-            <p class="last-message"></p>
+          <div class="contact-box hinata">
+            <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6YfCYAlfeQ6Ww884gWzU-pvc1F2VOElyH-4w0BYHl6LEM_v2S5A" alt="">
+            <div class="message-content">
+              <h4>Hinata</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
-        </div>
-        <div class="message-box reika">
-          <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtJAcxzjxICVbRYvJhWldEXwIpXmD0MCxKk1MOFqKQXnFfTVEQ" alt="">
-          <div class="message-content">
-            <h4>Reika</h4>
-            <p class="last-message"></p>
+          <div class="contact-box reika">
+            <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtJAcxzjxICVbRYvJhWldEXwIpXmD0MCxKk1MOFqKQXnFfTVEQ" alt="">
+            <div class="message-content">
+              <h4>Reika</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
-        </div>
-        <div class="message-box ichigo">
-          <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36XGQANBetg4AsS2oGvcjL9aykIMZ9e0DJd232HospR0LY81N3A" alt="">
-          <div class="message-content">
-            <h4>Ichigo</h4>
-            <p class="last-message"></p>
+          <div class="contact-box ichigo">
+            <img class="profile-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR36XGQANBetg4AsS2oGvcjL9aykIMZ9e0DJd232HospR0LY81N3A" alt="">
+            <div class="message-content">
+              <h4>Ichigo</h4>
+              <p class="last-message"></p>
+            </div>
+            <span class="time"></span>
           </div>
-          <span class="time"></span>
         </div>
       </div>
       <div class="right">
@@ -99,7 +101,14 @@
           <h3 id="selected-chats"></h3>
           <i id="bin" class="fas fa-trash"></i>
         </div>
-        <div class="messages-wrapper"></div>
+        <div class="messages-wrapper">
+          <div class="kishi"></div>
+          <div class="hikata hidden"></div>
+          <div class="matsumoto hidden"></div>
+          <div class="hinata hidden"></div>
+          <div class="reika hidden"></div>
+          <div class="ichigo hidden"></div>
+        </div>
         <div class="input-text-wrapper">
           <i class="far fa-smile"></i>
           <input id="input-message" type="text" name="" value="" placeholder="Write text here...">
