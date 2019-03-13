@@ -1,3 +1,7 @@
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -84,7 +88,7 @@ function sendMessage(sent){
 
   var newTime=document.createElement("span");
   $(newTime).addClass("messages-time")
-            .text(currentTime);
+  .text(currentTime);
   var newMessage=document.createElement("div");
 
   if (sent) {
@@ -94,15 +98,13 @@ function sendMessage(sent){
   }
 
   $(newMessage).addClass("message")
-               .append(newText)
-               .append(newTime);
+  .append(newText)
+  .append(newTime);
   var newLongClickWrapper=document.createElement("div");
   $(newLongClickWrapper).addClass("long-click-wrapper")
-                        .append(newMessage);
+  .append(newMessage);
   var contactContainer=$(".messages-wrapper > .showed");
   contactContainer.append(newLongClickWrapper);
-
-  // selectChatsToDelete();
 }
 
 function updateContactList(myText,currentTime){
@@ -160,54 +162,28 @@ function removeHighlight(){
   }
 }
 
-function selectContactChat(){
+function selectContactChat(contacts){
   var contactBox=$(".contact-box");
   var contactName=$("#contact-name");
   var contactImage=$("#contact-img");
   var lastOnline=$("#last-online");
   var messagesWrapper=$(".messages-wrapper > .chat");
+  var inputText=$("#input-message");
 
   contactBox.click(function(){
     removeHighlight();
+    inputText.focus();
     var activeChat=$(".selected");
     messagesWrapper.eq(activeChat.index()).removeClass("showed");
     activeChat.removeClass("selected");
     var me=$(this);
     me.addClass("selected");
-    var meContent=me.children(".message-content");
-    var meContentName=meContent.children("h4").text();
-    lastOnline.text("Ultimo accesso oggi alle " + getLastOnline(meContentName));
-    var meContentImage=me.children("img");
-    var meContentImageUrl=meContentImage.attr("src");
-    contactImage.attr("src",meContentImageUrl);
-    contactName.text(meContentName);
+    var myIndex=me.index();
+    lastOnline.text("Ultimo accesso oggi alle " + contacts[myIndex].lastOnline);
+    contactImage.attr("src",contacts[myIndex].img);
+    contactName.text(contacts[myIndex].name);
     messagesWrapper.eq(me.index()).addClass("showed");
   });
-}
-
-function getLastOnline(meContentName){
-  var lastOnline;
-  switch (meContentName) {
-    case "Kishi":
-    lastOnline="15:40";
-    break;
-    case "Hikata":
-    lastOnline="11:32";
-    break;
-    case "Matsumoto":
-    lastOnline="16:18";
-    break;
-    case "Hinata":
-    lastOnline="18:11";
-    break;
-    case "Reika":
-    lastOnline="02:33";
-    break;
-    case "Ichigo":
-    lastOnline="05:20";
-    break;
-  }
-  return lastOnline;
 }
 
 function selectChatsToDelete(){
@@ -297,11 +273,11 @@ function deleteChats(indexesToDelete){
   });
 }
 
-function init(){
+function init(contacts){
   var userToSearch=$("#search-user");
   var inputText=$("#input-message");
 
-  selectContactChat();
+  selectContactChat(contacts);
   selectChatsToDelete();
   userToSearch.on("input",function(){
     searchUser(userToSearch.val().toLowerCase());
@@ -317,4 +293,94 @@ function init(){
   });
 }
 
-$(document).ready(init);
+function getContacts(){
+  var contacts=[
+    {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw9ugdyHZwK-OEbibM9fHz6FqAGoLeMUBoPwK1fSnOjIF9gwitnw","name":"Bill","lastOnline":getRandomTime() },
+    {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHv3F1cjtMQSU6DhugBsoub0BU8caybVW-tSlR8Q6-yl3E7SKQ","name":"Lauren","lastOnline":getRandomTime() },
+    {"img":"http://www.metal.it/image.ashx?id=43120&size=400&folder=note&suffix=photo&filters=square","name":"Bruce","lastOnline":getRandomTime() },
+    {"img":"https://i1.wp.com/photogallery.indiatimes.com/celebs/celeb-themes/peoples-most-beautiful-women/Most-Beautiful-Women/photo/19723645/Les-Miserables-star-Amanda-Seyfried-has-bagged-the-third-place-in-the-list-of-most-beautiful-women-in-the-world.jpg","name":"Amanda","lastOnline":getRandomTime() },
+    {"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS875ig8P-f9nCfdsC6LzksHkDTgfTiyPtmTa3szIc5Q_VF8lESSQ","name":"Evangeline","lastOnline":getRandomTime() },
+    {"img":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg/220px-Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg","name":"Mark","lastOnline":getRandomTime() },
+    {"img":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-img.instyle.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2F684xflex%2Fpublic%2Fimages%2F2010%2Fgoldenglobes%2F011710-olivia-wilde-400_4.jpg%3Fitok%3D5k5A3b7h&w=200&c=sc&poi=face&q=85","name":"Olivia","lastOnline":getRandomTime()},
+    {"img":"https://pbs.twimg.com/profile_images/1166664337/john-locke_400x400.jpg","name":"John","lastOnline":getRandomTime()},
+  ]
+  return contacts;
+}
+
+function getRandomTime(){
+  var minutesFirst=getRandom(0,5);
+  var minutesSecond=getRandom(0,9);
+  var hour=getRandom(0,23);
+  var rndTime=hour+":"+minutesFirst+minutesSecond;
+  return rndTime;
+}
+
+function updateChatsContainer(contacts) {
+  var messagesWrapper=$(".messages-wrapper");
+
+  for (var i = 0; i < contacts.length; i++) {
+    var newChatDiv=document.createElement("div");
+    $(newChatDiv).addClass("chat");
+
+    if (i==0) {
+      $(newChatDiv).addClass("showed");
+    }
+
+    $(messagesWrapper).append(newChatDiv);
+  }
+
+  $(document).ready(function(){
+    init(contacts);
+  });
+}
+
+function updateRightHeader(name,img,time){
+  var lastOnline=$("#last-online");
+  var selectedContactImg=$("#contact-img");
+  var contactName=$("#contact-name");
+
+  lastOnline.text("Ultimo accesso oggi alle " + time);
+  selectedContactImg.attr("src",img);
+  contactName.text(name);
+}
+
+function updateContactsWrapper(){
+  var contacts=getContacts();
+  var contactsWrapper=$(".contacts-wrapper");
+
+  for (var i = 0; i < contacts.length; i++) {
+    var contactImg=contacts[i].img;
+    var newImg=document.createElement("img");
+    var contactName=contacts[i].name;
+    var lastOnline=contacts[i].lastOnline;
+    var newContactName=document.createElement("h4");
+    var lastMessage=document.createElement("p");
+    var newMessageContent=document.createElement("div");
+    var newMessageTime=document.createElement("span");
+    var newContactBox=document.createElement("div");
+
+    $(newMessageContent).addClass("message-content");
+    $(newContactBox).addClass("contact-box");
+
+    if (i==0) {
+      $(newContactBox).addClass("selected");
+      updateRightHeader(contactName,contactImg,lastOnline);
+    }
+
+    $(newContactName).text(contactName);
+    $(lastMessage).addClass("last-message");
+    $(newMessageContent).append(newContactName)
+    .append(lastMessage);
+    $(newImg).attr("src",contactImg)
+    .addClass("profile-img");
+    $(newMessageTime).addClass("time");
+    $(newContactBox).append(newImg)
+    .append(newMessageContent)
+    .append(newMessageTime);
+    $(contactsWrapper).append(newContactBox);
+  }
+
+  updateChatsContainer(contacts);
+}
+
+$(window).on('load', updateContactsWrapper);

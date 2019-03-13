@@ -44,6 +44,7 @@
   border-right: 1px solid #C3C3C3;
 }
 
+
 .right{
   height: 100%;
   width: 70%;
@@ -90,7 +91,7 @@
 .notifications{
   display: flex;
   align-items: center;
-  height: 70px;
+  height: 15%;
   background-color: #A5D0FE;
   padding: 0 20px;
   color: black;
@@ -118,11 +119,18 @@
 
 .search{
   padding: 10px 20px;
+  height: 7%;
 }
 
 .search input{
   width: 90%;
-  height: 25px;
+  height: 100%;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top: 1px solid #cecece;
+  border-left: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+  border-right: 0px solid white;
 }
 
 .magnifier{
@@ -131,10 +139,19 @@
   align-items: center;
   justify-content: center;
   width: 10%;
-  height: 25px;
-  border: 1px solid #C3C3C3;
+  height: 100%;
+  border-top: 1px solid #cecece;
+  border-right: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
   background-color: white;
   color: #6C7175;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.contacts-wrapper{
+  height: 68%;
+  overflow: auto;
 }
 
 .contact-box{
@@ -145,7 +162,18 @@
   color: black;
   border-bottom: 1px solid #C3C3C3;
   cursor: pointer;
-  overflow-y: hidden;
+}
+
+.message-content{
+  overflow: hidden;
+}
+
+.message-content .last-message{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
+  line-height: 1.5em;
 }
 
 .contact-box:hover{
@@ -210,7 +238,7 @@
   padding: 0 10px;
   height: 90%;
   width: 90%;
-  border-radius: 5px;
+  border-radius: 6px;
   border: 1px solid #cecece;
   outline: none;
 }
