@@ -180,14 +180,14 @@ function selectContactChat(contacts){
   var contactImage=$("#contact-img");
   var lastOnline=$("#last-online");
   var messagesWrapper=$(".messages-wrapper > .chat");
+  var contactsWrapper=$(".contacts-wrapper > .contact-box")
   var inputText=$("#input-message");
 
   contactBox.click(function(){
     removeHighlight();
     inputText.focus();
-    var activeChat=$(".selected");
-    messagesWrapper.eq(activeChat.index()).removeClass("showed");
-    activeChat.removeClass("selected");
+    contactsWrapper.removeClass("selected");
+    messagesWrapper.removeClass("showed");
     var me=$(this);
     me.addClass("selected");
     var myIndex=me.index();
