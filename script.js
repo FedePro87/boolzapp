@@ -136,21 +136,22 @@ function searchUser(mySearch){
 
   for (var i = 0; i < messageContent.length; i++) {
     var myContent=$(messageContent.eq(i));
-    var myUser=$(myContent.children("h4"));
+    var myUser=$(myContent.find("h4"));
     var myUserName=myUser.text();
     if (mySearch.length==0) {
       contactBox.eq(i).show();
-    }
-    for (var z = 0; z < mySearch.length; z++) {
-      var myChar=mySearch[z];
-      if (z==0) {
-        myChar=capitalizeFirstLetter(mySearch[z]);
-      }
-      if (myChar==myUserName[z]) {
-        contactBox.eq(i).show();
-      } else {
-        contactBox.eq(i).hide();
-        break;
+    } else {
+      for (var z = 0; z < mySearch.length; z++) {
+        var myChar=mySearch[z];
+        if (z==0) {
+          myChar=capitalizeFirstLetter(mySearch[z]);
+        }
+        if (myChar==myUserName[z]) {
+          contactBox.eq(i).show();
+        } else {
+          contactBox.eq(i).hide();
+          break;
+        }
       }
     }
   }
