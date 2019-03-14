@@ -73,7 +73,7 @@ function getMyProfileImg() {
   return "https://scontent-fco1-1.xx.fbcdn.net/v/t1.0-9/1236584_10201366261910944_1300062444_n.jpg?_nc_cat=108&_nc_ht=scontent-fco1-1.xx&oh=a5189930c05d1205b6a727b091d68375&oe=5D17C039";
 }
 
-function sendMessage(sent,contacts){
+function sendMessage(sent,contacts,text){
   var inputText=$("#input-message");
   var contactName=$("#contact-name");
   var showedChat=$(".showed");
@@ -85,17 +85,17 @@ function sendMessage(sent,contacts){
   var newImg=document.createElement("img");
 
   if (sent) {
-    $(newText).text(inputText.val());
-    updateContactList(inputText.val(),currentTime);
+    $(newText).text(text);
+    updateContactList(text,currentTime);
     $(newImg).addClass("my-img");
     $(newImg).attr("src",getMyProfileImg());
   } else {
-    $(newText).text(capitalizeFirstLetter(getResponse(inputText.val().toLowerCase())));
-    inputText.val("");
+    $(newText).text(capitalizeFirstLetter(getResponse(text.toLowerCase())));
     $(newImg).addClass("profile-img");
     $(newImg).attr("src",contacts[showedChat.index()].img);
   }
 
+  inputText.val("");
   var newTime=document.createElement("span");
   $(newTime).addClass("messages-time")
   .text(currentTime);
@@ -276,7 +276,6 @@ function deleteChats(indexesToDelete){
     longPressOptions.addClass("hidden");
     for (var i = 0; i < chats.length; i++) {
       for (var z = 0; z < indexesToDelete.length; z++) {
-        console.log(chats.eq(i).html());
         if (indexesToDelete[z]==i) {
           chats.eq(i).html("");
         }
@@ -298,8 +297,9 @@ function init(contacts){
   inputText.keyup(function(e){
     if(e.keyCode == 13)
     {
-      sendMessage(true,contacts);
-      setTimeout(sendMessage,1000,false,contacts);
+      var myText=inputText.val();
+      sendMessage(true,contacts,myText);
+      setTimeout(sendMessage,1000,false,contacts,myText);
     }
     removeHighlight();
   });
