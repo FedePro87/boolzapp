@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script id="message-template" type="text/x-handlebars-template">
+    <div class="long-click-wrapper">
+      <div class="{{messageType}} message">
+        <img class="my-img" src={{profileImgUrl}}>
+        <p>{{messageText}}</p>
+        <span class="messages-time">{{time}}</span>
+      </div>
+    </div>
+  </script>
+  <script id="contacts-template" type="text/x-handlebars-template">
+    <div class="contact-box">
+      <img src={{contactImg}} class="profile-img">
+      <div class="message-content">
+        <h4>{{contactName}}</h4>
+        <p class="last-message"></p>
+      </div>
+      <span class="time"></span>
+    </div>
+  </script>
 </head>
 <body>
   <div class="container">
@@ -61,6 +81,6 @@
 
         </div>
       </div>
-  </div>
-</body>
-</html>
+    </div>
+  </body>
+  </html>

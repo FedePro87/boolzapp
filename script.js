@@ -77,45 +77,35 @@ function sendMessage(sent,contacts,text){
   var inputText=$("#input-message");
   var contactName=$("#contact-name");
   var showedChat=$(".showed");
-
+  var contactContainer=$(".messages-wrapper > .showed");
   var currentdate = new Date();
   var mins = ("0"+currentdate.getMinutes()).slice(-2);
   var currentTime=currentdate.getHours()+ ":" + mins;
-  var newText=document.createElement("p");
-  var newImg=document.createElement("img");
+  var data;
 
   if (sent) {
-    $(newText).text(text);
     updateContactList(text,currentTime);
-    $(newImg).addClass("my-img");
-    $(newImg).attr("src",getMyProfileImg());
+    data={
+      messageType:"sent",
+      profileImgUrl:getMyProfileImg(),
+      messageText:text,
+      time:currentTime
+    }
   } else {
-    $(newText).text(capitalizeFirstLetter(getResponse(text.toLowerCase())));
-    $(newImg).addClass("profile-img");
-    $(newImg).attr("src",contacts[showedChat.index()].img);
+    data={
+      messageType:"received",
+      profileImgUrl:contacts[showedChat.index()].img,
+      messageText:capitalizeFirstLetter(getResponse(text.toLowerCase())),
+      time:currentTime
+    }
   }
 
   inputText.val("");
-  var newTime=document.createElement("span");
-  $(newTime).addClass("messages-time")
-  .text(currentTime);
-  var newMessage=document.createElement("div");
 
-  if (sent) {
-    $(newMessage).addClass("sent");
-  } else {
-    $(newMessage).addClass("received");
-  }
-
-  $(newMessage).addClass("message")
-  .append(newImg)
-  .append(newText)
-  .append(newTime);
-  var newLongClickWrapper=document.createElement("div");
-  $(newLongClickWrapper).addClass("long-click-wrapper")
-  .append(newMessage);
-  var contactContainer=$(".messages-wrapper > .showed");
-  contactContainer.append(newLongClickWrapper);
+  var messageTemplate=$("#message-template").html();
+  var compiled=Handlebars.compile(messageTemplate);
+  var message=compiled(data);
+  contactContainer.append(message);
 }
 
 function updateContactList(myText,currentTime){
@@ -361,37 +351,23 @@ function updateContactsWrapper(){
   var contactsWrapper=$(".contacts-wrapper");
 
   for (var i = 0; i < contacts.length; i++) {
-    var contactImg=contacts[i].img;
-    var newImg=document.createElement("img");
-    var contactName=contacts[i].name;
-    var lastOnline=contacts[i].lastOnline;
-    var newContactName=document.createElement("h4");
-    var lastMessage=document.createElement("p");
-    var newMessageContent=document.createElement("div");
-    var newMessageTime=document.createElement("span");
-    var newContactBox=document.createElement("div");
 
-    $(newMessageContent).addClass("message-content");
-    $(newContactBox).addClass("contact-box");
-
-    if (i==0) {
-      $(newContactBox).addClass("selected");
-      updateRightHeader(contactName,contactImg,lastOnline);
+    var data={
+      contactImg:contacts[i].img,
+      contactName:contacts[i].name
     }
 
-    $(newContactName).text(contactName);
-    $(lastMessage).addClass("last-message");
-    $(newMessageContent).append(newContactName)
-    .append(lastMessage);
-    $(newImg).attr("src",contactImg)
-    .addClass("profile-img");
-    $(newMessageTime).addClass("time");
-    $(newContactBox).append(newImg)
-    .append(newMessageContent)
-    .append(newMessageTime);
-    $(contactsWrapper).append(newContactBox);
+    var contactsTemplate=$("#contacts-template").html();
+    var compiled=Handlebars.compile(contactsTemplate);
+    var newContactBox=compiled(data);
+
+    contactsWrapper.append(newContactBox);
+    if (i==0) {
+      updateRightHeader(contacts[i].name,contacts[i].img,contacts[i].lastOnline);
+    }
   }
 
+  $(".contact-box").eq(0).addClass("selected");
   updateChatsContainer(contacts);
 }
 
